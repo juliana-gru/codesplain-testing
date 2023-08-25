@@ -1,13 +1,13 @@
-import { screen, render } from '@testing-library/react';
+import { screen, render, act } from '@testing-library/react';
 import RepositoriesListItem from './RepositoriesListItem';
 import { MemoryRouter } from 'react-router';
 
-jest.mock('../tree/FileIcon', () => {
-  //contents of FileIcon.js
-  return () => {
-    return 'File Icon Component'
-  }
-});
+// jest.mock('../tree/FileIcon', () => {
+//   //contents of FileIcon.js
+//   return () => {
+//     return 'File Icon Component'
+//   }
+// });
 
 function renderComponent() {
   const repository = {
@@ -27,6 +27,12 @@ function renderComponent() {
 test('shows a link to the github homepage for this repository', async () => {
   renderComponent();
 
+  await act(async () => {
+    await pause();
+  })
+
   // solve the Act warning by finding the img element that is rendering async
   // await screen.findByRole('img', { name: 'Javascript'});
 });
+
+const pause = () => new Promise(resolve => setTimeout(resolve, 100));
